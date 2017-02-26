@@ -1,9 +1,23 @@
 #coding = utf-8
 from selenium import webdriver
+import unittest
 
-brower = webdriver.Chrome()
+class NewVisitorTest(unittest.TestCase):
 
-first_url = "http://localhost:8000"
+	def setUp(self):
+		self.brower = webdriver.Chrome()
+		self.brower.implicitly_wait(3)
 
-brower.get(first_url)
-assert 'Django' in brower.title
+	def tearDown(self):
+		self.brower.quit()
+
+	def test_can_it_work(self):
+		self.brower.get('http://localhost:8000')
+
+		self.assertIn('To-Do', self.brower.title)
+		self.fail("Finish the test")
+
+if __name__ == '__main__':
+	unittest.main()
+
+
